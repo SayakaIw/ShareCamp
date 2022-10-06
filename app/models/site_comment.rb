@@ -1,0 +1,2 @@
+class SiteComment < ApplicationRecord
+end
