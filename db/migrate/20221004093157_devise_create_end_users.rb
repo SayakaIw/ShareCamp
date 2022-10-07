@@ -9,7 +9,7 @@ class DeviseCreateEndUsers < ActiveRecord::Migration[6.1]
       t.string :name, null: false
       t.string :kana_name, null: false
       t.string :nick_name, null: false
-      t.string :introduction, null: false
+      t.string :introduction
       t.boolean :is_deleted, null: false, default: false
 
 
