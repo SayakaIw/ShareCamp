@@ -1,1 +1,55 @@
-<h3>top</h3>
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-8">
+      <div id="box">
+        <div id="theTarget">
+          <div class="image1"></div>
+          <div class="image2"></div>
+          <div class="image3"></div>
+          <div class="image4"></div>
+          <div class="image5"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4" style="background-color: #f5f5f5;">
+      <h4 class="py-2 text-center">おすすめサイト</h4>
+      <div class="card border-info mt-3" style="max-width: 100%;">
+        <div class="card-header">Header</div>
+        <div class="row card-body text-info">
+          <div class="col-md-4">
+            <%= image_tag( '../../../assets/images/camp-eat.jpg', size: '100x100' %>
+          </div>
+          <p class="col-md-8 card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // オプションを指定してSkipprの実行
+  $("#theTarget").skippr({
+    // スライドショーの変化（"fade" or "slide"）
+    transition : 'fade',
+    // 変化にかかる時間（ミリ秒）
+    speed : 1000,
+    // easingの種類
+    easing : 'easeOutQuart',
+    // ナビゲーションの形（"block" or "bubble"）
+    navType : 'block',
+    // 子要素の種類（"div" or "img"）
+    childrenElementType : 'div',
+    // ナビゲーション矢印の表示（trueで表示）
+    arrows : true,
+    // スライドショーの自動再生（falseで自動再生なし）
+    autoPlay : true,
+    // 自動再生時のスライド切替間隔（ミリ秒）
+    autoPlayDuration : 3000,
+    // キーボードの矢印キーによるスライド送りの設定（trueで有効）
+    keyboardOnAlways : true,
+    // 1枚目のスライド表示時に戻る矢印を表示するかどうか [false]:矢印を隠さない [true]:矢印を隠す
+    hidePrevious : true
+  });
+</script>

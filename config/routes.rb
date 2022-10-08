@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   #namespaceはURLにも変更影響(URLにadminが入る)
   namespace :admin do
-    root 'homes#top'
+    get 'top' => 'homes#top', as: 'top'
     get 'searches/search'
 
     resources :end_users, only: [:index, :show, :edit, :update]
@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 
   #scopeはURL変えない
   scope module: :public do
-    get 'top' => 'homes#top', as: 'top'
+    root to: "homes#top"
 
     resources :favorites, only: [:create, :destroy]
 

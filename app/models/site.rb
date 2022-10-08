@@ -1,4 +1,5 @@
 class Site < ApplicationRecord
+  has_one_attached :image
 
   enum prefectures:{
     "---":0,
