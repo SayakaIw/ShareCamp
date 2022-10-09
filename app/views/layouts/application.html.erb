@@ -10,10 +10,21 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/skipper-slider@1.2.1/dist/skippr.css">
     <script src="https://cdn.jsdelivr.net/npm/skipper-slider@1.2.1/dist/skippr.min.js"></script>
+    <script src="https://kit.fontawesome.com/f831787753.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
     <%= render "layouts/header" %>
     <%= yield %>
+
+    <footer>
+      <div class='container-fluid mt-3' style="background-color:#008b8b;">
+      	<div class='row'>
+        	<div class='mx-auto'>
+        		<p>Share CAMP</p>
+        	</div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
