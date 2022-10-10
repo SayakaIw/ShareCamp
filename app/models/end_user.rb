@@ -3,6 +3,9 @@ class EndUser < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+         
+  has_many :sites, dependent: :destroy
+  
 
   def self.guest #null:falseの情報は全て追記する
     find_or_create_by!(email: 'guest@example.com') do |end_user| #guestアドレスがあれば探し、なければ作る

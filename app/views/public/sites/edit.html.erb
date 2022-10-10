@@ -1,2 +1,71 @@
-<h1>Public::Sites#edit</h1>
-<p>Find me in app/views/public/sites/edit.html.erb</p>
+<div class="container">
+    <%= render 'public/homes/flash' %>
+    <div class="row">
+        <div class="col-md-10 p-3 mx-auto">
+            <h3 class="mb-4 text-center">新規投稿</h3>
+            <%= form_with model: @site do |f| %>
+                <div class="form_group mb-1">
+                    <%= f.label :name, "【サイト名】" %>
+                    <%= f.text_field :name, style: "width:100%" %>
+                </div>
+                <div class="form_group mb-1">
+                    <%= f.label :review, "【サイト紹介】" %>
+                    <%= f.text_area :review, style: "width:100%" %>
+                </div>
+                <div class="form_group mb-1">
+                    <%= f.label :local_specialty, "【地域名産品】" %>
+                    <%= f.text_field :local_specialty, style: "width:100%" %>
+                </div>
+                <div class="form_group mb-2">
+                    <%= f.label :url, "【キャンプ場URL】" %>
+                    <%= f.text_field :url, style: "width:100%", placeholder: "URLもしくは、なし・不明を入力してください。" %>
+                </div>
+                <div class="form_group mb-1">
+                    <%= f.label :prefecture, "【県名を選択】" %>
+                    <!--invertメソッドでkeyとvalueを入れ替えられる-->
+                    <%= f.select :prefecture, Site.prefectures_i18n.invert, {prompt: "選択して下さい"}, class: "prefecture-select" %>
+                </div>
+                <div class="form_group mb-1">
+                   <%= f.label :site_type, "【サイトの種類を選択】" %><br>
+                    区画サイト <%= f.check_box :site_type,{},checked_value = 1, unchecked_value =0 %>
+                    フリーサイト <%= f.check_box :site_type,{},checked_value = 2, unchecked_value =0 %>
+                    コテージ等 <%= f.check_box :site_type,{},checked_value = 3, unchecked_value =0 %>
+                    グランピング <%= f.check_box :site_type,{},checked_value = 4, unchecked_value =0 %>
+                </div>
+                <div class="form_group mb-1">
+                    <p>【フィールドの種類を選択】</p>
+                    <%= f.radio_button :field_type, Site.field_types.key(0) %>
+                    <%= f.label :field_type, Site.field_types_i18n[:forest] %>
+
+                    <%= f.radio_button :field_type, Site.field_types.key(1) %>
+                    <%= f.label :field_type, Site.field_types_i18n[:grass] %>
+
+                    <%= f.radio_button :field_type, Site.field_types.key(2) %>
+                    <%= f.label :field_type, Site.field_types_i18n[:riverside] %>
+
+                    <%= f.radio_button :field_type, Site.field_types.key(3) %>
+                    <%= f.label :field_type, Site.field_types_i18n[:seaside] %>
+
+                    <%= f.radio_button :field_type, Site.field_types.key(4) %>
+                    <%= f.label :field_type, Site.field_types_i18n[:lakeside] %>
+                </div>
+                <div class="form_group mb-1">
+                    <p>【デイキャンプの有無を選択】</p>
+                    <%= f.radio_button :daycamp, Site.daycamps.key(0) %>
+                    <%= f.label :daycamp, Site.daycamps_i18n[:have] %>
+
+                    <%= f.radio_button :daycamp, Site.daycamps.key(1) %>
+                    <%= f.label :daycamp, Site.daycamps_i18n[:nothing] %>
+
+                    <%= f.radio_button :daycamp, Site.daycamps.key(2) %>
+                    <%= f.label :daycamp, Site.daycamps_i18n[:notclear] %>
+                </div>
+
+                    <%= f.file_field :image, accept: "image/*" %>
+                <div class="text-right mt-2">
+                    <%= f.submit '投稿する', method: :patch, class: "btn btn-outline-success" %>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>

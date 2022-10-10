@@ -1,2 +1,48 @@
-<h1>Public::Sites#show</h1>
-<p>Find me in app/views/public/sites/show.html.erb</p>
+<div class="container">
+    <div class="row">
+        <%= site.name %>詳細ページ<i class="fa-duotone fa-campfire"></i>
+        <div class="col-md-6 p-1">
+            <table>
+                <tr>
+                    <td>所在地（都道府県）</td>
+                    <td><%= site.prefecture %></td>
+                </tr>
+                <tr>
+                    <td>住所</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>サイト種類</td>
+                    <td><%= site.site_type %></td>
+                </tr>
+                <tr>
+                    <td>フィールド種類</td>
+                    <td><%= site.field_type %></td>
+                </tr>
+                <tr>
+                    <td>デイキャンプ実施</td>
+                    <td><%= site.daycamp_i18n %></td>
+                </tr>
+                <tr>
+                    <td>地域オススメ名産品</td>
+                    <td><%= site.local_specialty %></td>
+                </tr>
+                <tr>
+                    <td>キャンプ場URL</td>
+                    <td><%= site.url %></td>
+                </tr>
+            </table>
+            <div class="w-100"></div>
+            <%= image_tag %>
+        </div>
+        <div class="col-md-3 p-1">
+
+        </div>
+        <div class="col-md-3 p-1">
+
+            <% if @site.end_user == current_end_user %>
+                <%= link_to "削除",site_path(@site), method: :delete %>
+            <% end %>
+        </div>
+    </div>
+</div>
