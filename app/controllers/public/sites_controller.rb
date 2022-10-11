@@ -1,5 +1,6 @@
 class Public::SitesController < ApplicationController
   def show
+    @site = Site.find(params[:id])
   end
 
   def new
@@ -14,6 +15,7 @@ class Public::SitesController < ApplicationController
   end
 
   def index
+    @site = Site.all
   end
 
   def edit
@@ -23,7 +25,7 @@ class Public::SitesController < ApplicationController
   def update
     @site = Site.find(params[:id])
     if @site.update(site_params)
-      redirect_to my_page_path, notice: "You have updated site-date successfully"
+      redirect_to my_page_path, notice: "You have updated site-information successfully"
     else
       render "edit"
     end

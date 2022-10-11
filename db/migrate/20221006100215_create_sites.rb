@@ -4,7 +4,7 @@ class CreateSites < ActiveRecord::Migration[6.1]
       t.integer :end_user_id, null: false
       t.string :name, null: false
       t.integer :prefecture, null: false, default: 0
-      t.string :site_type, null: false, default: 0
+      t.string :site_type, null: false
       t.integer :field_type, null: false, default: 0
       t.integer :daycamp, null: false, default: 0
       t.string :local_specialty, null: false

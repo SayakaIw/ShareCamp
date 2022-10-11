@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 2022_10_08_062717) do
     t.integer "end_user_id", null: false
     t.string "name", null: false
     t.integer "prefecture", default: 0, null: false
-    t.string "site_type", default: "0", null: false
+    t.string "site_type", null: false
     t.integer "field_type", default: 0, null: false
     t.integer "daycamp", default: 0, null: false
     t.string "local_specialty", null: false

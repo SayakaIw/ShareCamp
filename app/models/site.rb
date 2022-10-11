@@ -17,7 +17,21 @@ class Site < ApplicationRecord
   enum field_type:{ forest:0,grass:1,riverside:2,seaside:3,lakeside:4 }
   enum daycamp:{ have:0,nothing:1,notclear:2 }
 
+  # def get_image
+  #   if image.attached?
+  #     image
+  #   else
+  #     'camp-noimg.jpg'
+  #   end
+  # end
 
+def get_image(width, height)
+  unless image.attached?
+    file_path = Rails.root.join('app/assets/images/camp-noimg.jpg')
+    image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+  end
+  image.variant(resize_to_limit: [width, height]).processed
+end
 
 
 end

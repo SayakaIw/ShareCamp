@@ -40,13 +40,23 @@ Rails.application.routes.draw do
 
     resources :sites, only: [:show, :new, :create, :index, :edit, :update, :destroy]
 
+    # resources :end_users do
+    #   collection do
+    #     get 'unsubscribe' => 'end_users#unsubscribe', as: 'confirm_unsubscribe'
+    #     patch 'withdraw' => 'end_users#withdraw', as: 'withdraw_end_user'
+    #   end
+    #   member do
+    #     get :my_page
+    #   end
+    # end
+
     get 'end_users/my_page' => 'end_users#show',as:'my_page'
     get 'end_users/information/edit' => 'end_users#edit',as:'my_page_edit'
     patch 'end_users/information' => 'end_users#update', as:'my_page_update'
     get 'end_users/unsubscribe' => 'end_users#unsubscribe', as: 'confirm_unsubscribe'
     put 'end_users/information' => 'end_users#update'
-    patch 'end_users/withdraw' => 'end_users#withdraw', as: 'withdraw_end_user' 
-    
+    patch 'end_users/withdraw' => 'end_users#withdraw', as: 'withdraw_end_user'
+
     get 'about'=>'homes#about' ,as:'about'
   end
 

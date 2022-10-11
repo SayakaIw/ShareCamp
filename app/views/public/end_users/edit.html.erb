@@ -3,9 +3,8 @@
   <%= render 'public/homes/flash' %>
     <div class="card-body">
       <div class="mt-5 mx-auto" style="width: 300px;">
-        <%= form_with model: @end_user, url: registration_path(resource_name), local: true do |f| %>
-          <%= render "public/shared/error_messages", resource: resource %>
-          <h3 class="mb-3">新規登録はこちら</h3>
+        <%= form_with model: @end_user, url:end_users_information_path, local: true do |f| %>
+          <h3 class="mb-3">プロフィール編集</h3>
 
           <div class="field">
             <%= f.label :氏名 %><br>
@@ -23,22 +22,9 @@
             <%= f.label :メールアドレス %><br>
             <%= f.email_field :email, autocomplete: "email" %>
           </div>
-          <div class="field">
-            <%= f.label :パスワード %>
-            <% if @minimum_password_length %>
-            <em>(<%= @minimum_password_length %> characters minimum)</em>
-            <% end %><br />
-            <%= f.password_field :password, autocomplete: "new-password" %>
-          </div>
-
-          <div class="field">
-            <%= f.label :パスワード確認 %><br />
-            <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-          </div>
 
           <div class="actions mt-3">
-            <%= f.submit "新規登録",class: 'btn btn-success btn-md col-xs-3' %>
-            <%= render "public/shared/links" %>
+            <%= f.submit "内容を更新", method: :patch, class: 'btn btn-success btn-md col-xs-3' %>
           </div>
         <% end %>
       </div>

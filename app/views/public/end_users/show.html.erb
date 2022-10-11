@@ -1,4 +1,12 @@
-<%= render 'public/homes/flash' %>
-
-
-<%= link_to "退会する", confirm_unsubscribe_path, class: "btn btn-outline-danger" %>
+<div class="container">
+  <div class="row">
+  <%= render 'public/homes/flash' %>
+  <div class="col-md-8">
+    <%= render 'public/sites/index', site: @site %>
+  </div>
+  <div class="col-md-4">
+  <%= link_to "編集", my_page_edit_path %>
+  <%= link_to "退会する", confirm_unsubscribe_path, class: "btn btn-outline-danger" %>
+  </div>
+  </div>
+</div>
