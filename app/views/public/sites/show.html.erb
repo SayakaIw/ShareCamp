@@ -40,6 +40,7 @@
 
         </div>
         <div class="col-md-3 p-1">
+            <div class="favorite_btn_<%= @site.id %>"><%= render 'public/favorites/favorite_btn', site: @site %></div>
 
             <% if @site.end_user == current_end_user %>
                 <%= link_to "削除",site_path(@site), method: :delete %>

@@ -64,3 +64,7 @@ ja:
         have: "有り"
         nothing: "無し"
         notclear: "不明"
+    end_user:
+      is_deleted:
+        in_use: "有効"
+        withdrawal: "退会"

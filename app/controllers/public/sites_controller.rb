@@ -15,7 +15,7 @@ class Public::SitesController < ApplicationController
   end
 
   def index
-    @site = Site.all
+    @sites = Site.all.page(params[:page]).per(10)
   end
 
   def edit

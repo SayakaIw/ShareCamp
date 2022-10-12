@@ -32,13 +32,12 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: "homes#top"
 
-    resources :favorites, only: [:create, :destroy]
-
     get 'searches/search'
 
-    resources :site_comments, only: [:create, :destroy]
-
-    resources :sites, only: [:show, :new, :create, :index, :edit, :update, :destroy]
+    resources :sites, only: [:show, :new, :create, :index, :edit, :update, :destroy] do
+      resource :favorites, only: [:create, :destroy]
+      resources :site_comments, only: [:create, :destroy]
+    end
 
     # resources :end_users do
     #   collection do
