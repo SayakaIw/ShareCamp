@@ -1,2 +1,41 @@
-<h1>Admin::EndUsers#edit</h1>
-<p>Find me in app/views/admin/end_users/edit.html.erb</p>
+<div class="container">
+  <div class="card mt-5 shadow-lg">
+  <%= render 'public/homes/flash' %>
+    <div class="card-body">
+      <div class="mt-5 mx-auto" style="width: 300px;">
+        <%= form_with model: @end_user, url: admin_end_user_path, local: true do |f| %>
+          <h3 class="mb-3">Admin::EndUsers#編集ページ</h3>
+
+          <div class="field">
+            <%= f.label :氏名 %><br>
+            <%= f.text_field :name, autofocus: true %>
+          </div>
+          <div class="field">
+            <%= f.label :カナ氏名 %><br>
+            <%= f.text_field :kana_name %>
+          </div>
+          <div class="field">
+            <%= f.label :ニックネーム %><br>
+            <%= f.text_field :nick_name %>
+          </div>
+          <div class="field">
+            <%= f.label :メールアドレス %><br>
+            <%= f.email_field :email, autocomplete: "email" %>
+          </div>
+          <div class="field">
+            <%= f.label :会員ステータス %><br>
+            <%= f.radio_button :is_deleted, EndUser.is_deleteds.key(false) %>
+            <%= f.label :is_deleted, EndUser.is_deleteds_i18n[:in_use] %>
+
+            <%= f.radio_button :is_deleted, EndUser.is_deleteds.key(true) %>
+            <%= f.label :is_deleted, EndUser.is_deleteds_i18n[:withdrawal] %>
+          </div>
+
+          <div class="actions mt-3">
+            <%= f.submit "内容を更新", class: 'btn btn-success btn-md col-xs-3' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
