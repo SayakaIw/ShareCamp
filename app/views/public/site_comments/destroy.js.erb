@@ -1,0 +1,3 @@
+$(".comments-count_<%= @site.id %>").html("コメント数: <%= @site.site_comments.count %>");
+$(".site_comments").html("<%= j(render 'public/site_comments/index', site: @site) %>");
+$("#site_comment_comment").val("");

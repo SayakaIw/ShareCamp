@@ -1,0 +1,14 @@
+<% site.site_comments.each do |site_comment| %>
+<div class="card" style="width: 100%;">
+  <div class="card-body">
+    <p class="card-text">
+        <%= site_comment.comment %><br>
+        <small class="text-muted">投稿日：<%= site_comment.created_at.strftime('%Y/%m/%d') %><br>
+        by：<%= site_comment.end_user.nick_name %>さん</small>
+    </p>
+      <% if site_comment.end_user == current_end_user %>
+        <%= link_to "削除", site_site_comment_path(site_comment.site,site_comment), method: :delete, class: "btn-sm btn-danger", remote: true %>
+      <% end %>
+  </div>
+</div>
+<% end %>

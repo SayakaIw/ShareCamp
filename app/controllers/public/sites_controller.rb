@@ -1,6 +1,8 @@
 class Public::SitesController < ApplicationController
   def show
     @site = Site.find(params[:id])
+    @site_comment = SiteComment.new
+    # @site_comments = @site.site_comment
   end
 
   def new

@@ -2,6 +2,7 @@ class Site < ApplicationRecord
   has_one_attached :image
   belongs_to :end_user
   has_many :favorites, dependent: :destroy
+  has_many :site_comments, dependent: :destroy
 
   enum prefecture:{ hokkaido:0,
     aomori:1,iwate:2,miyagi:3,akita:4,yamagata:5,fukushima:6,ibaraki:7,
