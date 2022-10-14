@@ -3,6 +3,7 @@ class Site < ApplicationRecord
   belongs_to :end_user
   has_many :favorites, dependent: :destroy
   has_many :site_comments, dependent: :destroy
+  # has_many :favorited_end_users, throught: :favorites, source: :end_user
 
   enum prefecture:{ hokkaido:0,
     aomori:1,iwate:2,miyagi:3,akita:4,yamagata:5,fukushima:6,ibaraki:7,
@@ -37,6 +38,10 @@ end
 
 def favorited_by?(end_user)
   favorites.exists?(end_user_id: end_user.id)
+end
+
+def self.create_all_ranks
+  Site.find(Favorite.group(:site_id).where(created_at: Time.current.all_week).order('count(site_id) desc').limit(5).pluck(:site_id))
 end
 
 

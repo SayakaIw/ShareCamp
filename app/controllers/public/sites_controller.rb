@@ -18,6 +18,7 @@ class Public::SitesController < ApplicationController
 
   def index
     @sites = Site.all.page(params[:page]).per(10)
+    @all_ranks = Site.create_all_ranks
   end
 
   def edit

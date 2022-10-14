@@ -7,6 +7,7 @@ class EndUser < ApplicationRecord
   has_many :sites, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :site_comments, dependent: :destroy
+  # has_many :favorited_sites, throught: :favorites, source: :site
 
   enum is_deleted: { "in_use": false, "withdrawal": true }
 
