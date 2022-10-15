@@ -1,4 +1,5 @@
 class Public::SitesController < ApplicationController
+  before_action :authenticate_end_user!
   def show
     @site = Site.find(params[:id])
     @site_comment = SiteComment.new

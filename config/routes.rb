@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   namespace :admin do
     get 'top' => 'homes#top', as: 'top'
     get 'searches/search'
+    get 'searches/index'
 
     resources :end_users, only: [:index, :show, :edit, :update]
 
@@ -33,6 +34,7 @@ Rails.application.routes.draw do
     root to: "homes#top"
 
     get 'searches/search'
+    get 'searches/index'
 
     resources :sites, only: [:show, :new, :create, :index, :edit, :update, :destroy] do
       resource :favorites, only: [:create, :destroy]

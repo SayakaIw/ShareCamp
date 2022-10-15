@@ -1,4 +1,5 @@
 class EndUser < ApplicationRecord
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -21,5 +22,17 @@ class EndUser < ApplicationRecord
       end_user.is_deleted = false
     end
   end
+
+  # def self.search_for(content, method)
+  #   if method == 'perfect'
+  #     EndUser.where(nick_name: content)
+  #   elsif method == 'forward'
+  #     EndUser.where('nick_name LIKE?', content + '%')
+  #   elsif method == 'backward'
+  #     EndUser.where('nick_name LIKE?', '%' + content)
+  #   else
+  #     EndUser.where('nick_name LIKE?', '%' + content + '%')
+  #   end
+  # end
 
 end

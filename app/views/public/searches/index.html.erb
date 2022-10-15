@@ -1,0 +1,44 @@
+<div class="container" style= "height: 80vh">
+    <div class="wrap">
+      <ul id="tab-menu">
+        <li><a href="#tab1" class="active">都道府県検索</a></li>
+        <li><a href="#tab2" class="">サイト名検索</a></li>
+        <li><a href="#tab3" class="">カテゴリー検索</a></li>
+        <li><a href="#tab4" class="">Share＊CAMP</a></li>
+      </ul>
+
+      <div id="tab-contents">
+        <div id="tab1" class="tab">
+          <p>TAB1のテキストが入ります。</p>
+        </div>
+
+        <div id="tab2" class="tab">
+          <p>TAB2のテキストが入ります
+            <%= render 'public/searches/search' %>
+          </p>
+        </div>
+
+        <div id="tab3" class="tab">
+          <p>TAB3のテキストが入ります。TAB3のテキストが入ります。TAB3のテキストが入ります。</p>
+        </div>
+
+        <div id="tab4" class="tab">
+          <p>「みんなにオススメしたい」と思えるキャンプ場を、<br>
+          ぜひ、シェアしてください！！
+          </p>
+        </div>
+      </div>
+    </div>
+</div>
+
+<script>
+    $('#tab-contents .tab[id != "tab1"]').hide();
+
+    $('#tab-menu a').on('click', function(event) {
+      $("#tab-contents .tab").hide();
+      $("#tab-menu .active").removeClass("active");
+      $(this).addClass("active");
+      $($(this).attr("href")).show();
+      event.preventDefault();
+    });
+</script>

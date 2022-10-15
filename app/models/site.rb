@@ -28,21 +28,34 @@ class Site < ApplicationRecord
   #   end
   # end
 
-def get_image(width, height)
-  unless image.attached?
-    file_path = Rails.root.join('app/assets/images/camp-noimg.jpg')
-    image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+  def get_image(width, height)
+    unless image.attached?
+      file_path = Rails.root.join('app/assets/images/camp-noimg.jpg')
+      image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+    end
+    image.variant(resize_to_limit: [width, height]).processed
   end
-  image.variant(resize_to_limit: [width, height]).processed
-end
 
-def favorited_by?(end_user)
-  favorites.exists?(end_user_id: end_user.id)
-end
+  def favorited_by?(end_user)
+    favorites.exists?(end_user_id: end_user.id)
+  end
 
-def self.create_all_ranks
-  Site.find(Favorite.group(:site_id).where(created_at: Time.current.all_week).order('count(site_id) desc').limit(5).pluck(:site_id))
-end
+  def self.create_all_ranks
+    Site.find(Favorite.group(:site_id).where(created_at: Time.current.all_week).order('count(site_id) desc').limit(5).pluck(:site_id))
+  end
+
+  #検索方法分岐
+  def self.search_for(content, method)
+    if method == 'perfect'
+      Site.where(name: content)
+    elsif method == 'forward'
+      Site.where('name LIKE ?', content + '%')
+    elsif method == 'backward'
+      Site.where('name LIKE?','%' + content)
+    else
+      Site.where('name LIKE?', '%' + content + '%')
+    end
+  end
 
 
 end
