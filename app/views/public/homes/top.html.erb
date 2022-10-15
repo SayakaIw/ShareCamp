@@ -1,5 +1,5 @@
 <div class="container">
-  <%= render 'public/homes/flash' %>
+  <!--<!%= render 'public/homes/flash' %>-->
   <div class="row">
 
     <div class="col-md-8">
@@ -12,6 +12,25 @@
           <div class="image5"></div>
         </div>
       </div>
+      <div class="mt-5 w-100"></div>
+      <div class="card-group">
+        <% @sites.each do |site| %>
+          <div class="card" style="width: 18rem;">
+            <%= image_tag site.get_image(100,100) %>
+            <div class="card-body">
+              <h5 class="card-title">
+                <%= link_to site_path(site) do %>
+                  <%= site.name %>
+                <% end %>
+              </h5>
+              <p class="card-text">
+                <%= site.review %>
+              </p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
     </div>
     <!--topページサイドバー-->
     <div class="col-md-4" style="background-color: #f5f5f5;">
@@ -23,7 +42,11 @@
           <div class="col-md-4">
             <%= image_tag "camp-eat.jpg", size: "100x100", alt: "camp-meal" %>
           </div>
-          <p class="col-md-8 card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <p class="col-md-8 card-text">
+            ＊<%= link_to "ソトレシピ","https://sotorecipe.com/magazines/simple-campingfood" %><br>
+            <br>
+            ＊<%= link_to "ハピキャン","https://happycamper.jp/_ct/17410718" %>
+            </p>
         </div>
       </div>
       <div class="card border-info mt-3" style="max-width: 100%;">
@@ -32,7 +55,11 @@
           <div class="col-md-4">
             <%= image_tag "camp-gear.jpg", size: "100x100", alt: "camp-gear" %>
           </div>
-          <p class="col-md-8 card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <p class="col-md-8 card-text">
+            ＊<%= link_to "DOD", "https://www.dod.camp/" %><br>
+            <br>
+            ＊<%= link_to "ワークマン", "https://workman.jp/shop/pages/campgear-article-02.aspx" %>
+          </p>
         </div>
       </div>
       <div class="card border-info mt-3" style="max-width: 100%;">
@@ -41,7 +68,11 @@
           <div class="col-md-4">
             <%= image_tag "camp-column.jpg", size: "100x100", alt: "camp-column" %>
           </div>
-          <p class="col-md-8 card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <p class="col-md-8 card-text">
+            ＊<%= link_to "キャンプぐらし", "https://cocamp.co.jp/media/category/camp-gear/" %><br>
+            <br>
+            ＊<%= link_to "CAMP HUCK", "https://camphack.nap-camp.com/categories/news" %>
+          </p>
         </div>
       </div>
       <div class="card border-info my-3" style="max-width: 100%;">
@@ -50,10 +81,13 @@
           <div class="col-md-4">
             <%= image_tag "camp-weather.jpg", size: "100x100", alt: "camp-weather" %>
           </div>
-          <p class="col-md-8 card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <p class="col-md-8 card-text">
+            ＊<%= link_to "YAHOO天気", "https://weather.yahoo.co.jp/weather/" %><br>
+            <br>
+            ＊<%= link_to "WeatherNews", "https://weathernews.jp/onebox/tenki/" %>
+          </p>
         </div>
       </div>
-
     </div>
 
   </div>
