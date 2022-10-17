@@ -10,7 +10,7 @@
       <div id="tab-contents">
         <div id="tab1" class="tab">
           <p>TAB1のテキストが入ります。</p>
-         
+
         </div>
 
         <div id="tab2" class="tab">
@@ -20,7 +20,13 @@
         </div>
 
         <div id="tab3" class="tab">
-          <p>TAB3のテキストが入ります。TAB3のテキストが入ります。TAB3のテキストが入ります。</p>
+          <p>フィールドタイプから検索。</p>
+          <%= render 'public/searches/fieldsearch' %>
+          <!--<!%= form_tag(searches_fieldsearch_path(keyword: @site.field_type), method: "get") do %>-->
+          <!--  <!%= select_tag(:field_type, options_for_select([["forest","forest"],["grass","grass"],["riverside","riverside"],["seaside","seaside"],["lakeside","lakeside"]])) %>-->
+          <!--  <!%= submit_tag "絞り込み" %>-->
+          <!--<!% end %>-->
+
         </div>
 
         <div id="tab4" class="tab">

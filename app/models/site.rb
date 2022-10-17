@@ -57,5 +57,17 @@ class Site < ApplicationRecord
     end
   end
 
+  def self.search_for(content, method)
+    if method == 'perfect'
+      Site.where(field_type: content)
+    elsif method == 'forward'
+      Site.where('field_type LIKE ?', content + '%')
+    elsif method == 'backward'
+      Site.where('field_type LIKE?','%' + content)
+    else
+      Site.where('field_type LIKE?', '%' + content + '%')
+    end
+  end
+
 
 end
