@@ -9,6 +9,7 @@ class Public::SiteCommentsController < ApplicationController
 
   def destroy
     SiteComment.find(params[:id]).destroy
+    @site = Site.find(params[:site_id])
     #redirect_to request.referer
   end
 

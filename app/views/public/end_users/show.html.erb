@@ -2,11 +2,15 @@
   <div class="row">
   <%= render 'public/homes/flash' %>
     <div class="col-md-8">
+      <%= link_to "新規投稿", new_site_path, class: "btn btn-success" %>
       <%= render 'public/sites/index', site: @site %>
     </div>
     <div class="col-md-4">
-    <%= link_to "編集", my_page_edit_path %>
-    <%= link_to "退会する", confirm_unsubscribe_path, class: "btn btn-outline-danger" %>
+      <% @favorite_sites.each do |site|%>
+        <%= site.site.name %>
+      <% end %>
+      <%= link_to "編集", my_page_edit_path, class: "btn btn-outline-primary" %>
+      <%= link_to "退会する", confirm_unsubscribe_path, class: "btn btn-outline-danger" %>
     </div>
   </div>
 </div>

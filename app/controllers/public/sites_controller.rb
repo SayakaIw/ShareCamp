@@ -12,6 +12,7 @@ class Public::SitesController < ApplicationController
 
   def create
     @site = Site.new(site_params)
+    # byebug
     @site.end_user_id = current_end_user.id
     @site.save
     redirect_to my_page_path
@@ -37,12 +38,15 @@ class Public::SitesController < ApplicationController
   end
 
   def destroy
+    @site = Site.find(params[:id])
+    @site.destroy
+    redirect_to sites_path
   end
 
   private
 
   def site_params
-    params.require(:site).permit(:name, :review, :local_specialty, :url, :image, :prefectures, :site_type, :field_type, :daycamp)
+    params.require(:site).permit(:name, :review, :local_specialty, :url, :image, :prefecture, :site_type, :field_type, :daycamp)
   end
 
 end

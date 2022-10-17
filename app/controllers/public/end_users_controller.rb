@@ -29,6 +29,12 @@ class Public::EndUsersController < ApplicationController
     redirect_to root_path
   end
 
+  def favorites
+    @end_user = EndUser.find(params[:id])
+    favorites= Favorite.where(end_user_id: @end_user.id).pluck(:site_id)
+    @favorite_sites = Site.find(favorites)
+  end
+
   private
 
   def end_user_params

@@ -28,11 +28,11 @@ Admin.create!(
     end_user_id: n + 1,
     name: "site#{n + 1}",
     prefecture: n + 1,
-    site_type: "区画サイト",
+    site_type: 1,
     field_type: 0,
     daycamp: 0,
     local_specialty: "お菓子",
-    url: "thhp#{n + 1}",
-    review: "いいね！"
+    url: "http#{n + 1}",
+    review: "reviewいいね！"
   )
 end

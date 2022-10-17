@@ -14,7 +14,7 @@
                 </tr>
                 <tr>
                     <td>サイト種類</td>
-                    <td><%= @site.site_type %></td>
+                    <td><%= @site.site_type_i18n %></td>
                 </tr>
                 <tr>
                     <td>フィールド種類</td>
@@ -36,10 +36,15 @@
             <div class="w-100"></div>
             <p class="p-3">
                 <%= image_tag @site.get_image(300,300) %>
-                <%= @site.review %>
+                <%= @site.review %><br>
+                <% if @site.end_user == current_end_user %>
+                    <%= link_to '編集', edit_site_path(@site), class: "btn btn-sm btn-success edit_site_#{@site.id}" %>
+                    <%= link_to '削除', site_path(@site), data: { confirm: '本当に消しますか？' }, method: :delete, class: "btn btn-sm btn-danger destroy_site_#{@site.id}"%>
+                <% end %>
             </p>
+
         </div>
-        <div class="col-md-3 p-2">
+        <div class="d-flex align-items-end">
             <div class="mb-3">
                 <%= form_with model: [@site,@site_comment], local: false do |f| %>
                     <%= f.text_area :comment, rows: '5', style: "width:100%", placeholder: "コメント投稿はこちら" %>
@@ -47,14 +52,9 @@
                 <% end %>
             </div>
 
-            <div class="favorite_btn_<%= @site.id %>"><%= render 'public/favorites/favorite_btn', site: @site %></div>
-
-            <% if @site.end_user == current_end_user %>
-                <%= link_to "削除",site_path(@site), method: :delete, remote: true %>
-            <% end %>
-
         </div>
         <div class="col-md-3 p-1">
+            <div class="favorite_btn_<%= @site.id %>"><%= render 'public/favorites/favorite_btn', site: @site %></div>
             <p class="comments_count_<%= @site.id %>">コメント数：<%= @site.site_comments.count %></p>
             <div class="site_comments">
                 <%= render 'public/site_comments/index', site: @site %>

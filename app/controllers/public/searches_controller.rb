@@ -17,7 +17,7 @@ class Public::SearchesController < ApplicationController
   end
 
   def fieldsearch
-    @sites = Site.search(params[:keyword])
+    # @sites = Site.search(params[:keyword])
   end
 
 end

@@ -43,6 +43,7 @@ Rails.application.routes.draw do
     end
 
     # resources :end_users do
+
     #   collection do
     #     get 'unsubscribe' => 'end_users#unsubscribe', as: 'confirm_unsubscribe'
     #     patch 'withdraw' => 'end_users#withdraw', as: 'withdraw_end_user'
@@ -51,6 +52,11 @@ Rails.application.routes.draw do
     #     get :my_page
     #   end
     # end
+    resources :end_users, only: [:index] do
+      member do
+        get :favorites
+      end
+    end
 
     get 'end_users/my_page' => 'end_users#show',as:'my_page'
     get 'end_users/information/edit' => 'end_users#edit',as:'my_page_edit'

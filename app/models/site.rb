@@ -16,7 +16,7 @@ class Site < ApplicationRecord
     saga:40,nagasaki:41,kumamoto:42,oita:43,miyazaki:44,kagoshima:45,okinawa:46
   }
 
-  #enum site_type:{ section:0,free:1,cottage:2,glamping:3 }
+  enum site_type:{ section:0,free:1,cottage:2,glamping:3 }
   enum field_type:{ forest:0,grass:1,riverside:2,seaside:3,lakeside:4 }
   enum daycamp:{ have:0,nothing:1,notclear:2 }
 
