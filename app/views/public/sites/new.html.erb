@@ -70,6 +70,9 @@
                     <%= f.radio_button :daycamp, Site.daycamps.key(2) %>
                     <%= f.label :daycamp, Site.daycamps_i18n[:notclear] %>
                 </div>
+                <div id="evaluate_stars">
+                    <label>【おすすめ度】</label>
+                </div>
 
                     <%= f.file_field :image, accept: "image/*" %>
                 <div class="text-right mt-2">
@@ -79,3 +82,13 @@
         </div>
     </div>
 </div>
+
+
+<script>
+  $('#evaluate_stars').raty({
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
+    starHalf: "<%= asset_path('star-half.png') %>",
+    scoreName: 'site[evaluation]'
+  });
+</script>

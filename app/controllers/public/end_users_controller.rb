@@ -1,6 +1,11 @@
 class Public::EndUsersController < ApplicationController
+  before_action :authenticate_end_user!
+  before_action :ensure_guest_user, only: [:edit]
+
   def show
     @end_user = current_end_user
+    favorites= Favorite.where(end_user_id: @end_user.id).pluck(:site_id)
+    @favorite_sites = Site.find(favorites)
     @site = @end_user.sites
   end
 
@@ -11,8 +16,10 @@ class Public::EndUsersController < ApplicationController
   def update
     @end_user = current_end_user
     if @end_user.update(end_user_params)
-      redirect_to my_page_path, notice: "the update was successful!"
+      flash[:success] = "変更内容を登録しました"
+      redirect_to my_page_path
     else
+      flash.now[:danger] = "変更に失敗しました"
       render "edit"
     end
   end
@@ -25,15 +32,15 @@ class Public::EndUsersController < ApplicationController
     @end_user.update(is_deleted: true)
 
     reset_session
-    flash[:notice] = "ありがとうございました。またのご利用をお待ちしております。"
+    flash[:success] = "ありがとうございました。またのご利用をお待ちしております。"
     redirect_to root_path
   end
 
-  def favorites
-    @end_user = EndUser.find(params[:id])
-    favorites= Favorite.where(end_user_id: @end_user.id).pluck(:site_id)
-    @favorite_sites = Site.find(favorites)
-  end
+  # def favorites
+  #   @end_user = EndUser.find(params[:id])
+  #   # favorites= Favorite.where(end_user_id: @end_user.id).pluck(:site_id)
+  #   # @favorite_sites = Site.find(favorites)
+  # end
 
   private
 

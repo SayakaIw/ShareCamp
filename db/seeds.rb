@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-11.times do |n|
+15.times do |n|
   EndUser.create!(
     email: "test#{n + 1}@test.com",
     name: "太郎#{n + 1}",
@@ -36,3 +36,16 @@ Admin.create!(
     review: "reviewいいね！"
   )
 end
+
+# [1, 2, 3, 4, 5].each do |o|
+
+max_user = 10
+[10, 5, 3, 2, 1].each do |m|
+  (1..max_user).each do |end_user_id|
+    Favorite.create!(site_id: m, end_user_id: end_user_id)
+  end
+  max_user -= 2
+end
+Favorite.create!(site_id: 1, end_user_id: 10)
+Favorite.create!(site_id: 1, end_user_id: 9)
+Favorite.create!(site_id: 6, end_user_id: 11)

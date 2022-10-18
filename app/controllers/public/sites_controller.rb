@@ -1,5 +1,6 @@
 class Public::SitesController < ApplicationController
   before_action :authenticate_end_user!
+
   def show
     @site = Site.find(params[:id])
     @site_comment = SiteComment.new
@@ -14,8 +15,13 @@ class Public::SitesController < ApplicationController
     @site = Site.new(site_params)
     # byebug
     @site.end_user_id = current_end_user.id
-    @site.save
-    redirect_to my_page_path
+    if @site.save
+      flash[:success] = "登録しました"
+      redirect_to my_page_path
+    else
+      flash.now[:danger] = "登録に失敗しました"
+      render :new
+    end
   end
 
   def index
@@ -31,8 +37,10 @@ class Public::SitesController < ApplicationController
   def update
     @site = Site.find(params[:id])
     if @site.update(site_params)
-      redirect_to my_page_path, notice: "You have updated site-information successfully"
+      flash[:success] = "編集に成功しました"
+      redirect_to my_page_path
     else
+      flash.now[:danger] = "編集に失敗しました"
       render "edit"
     end
   end
@@ -46,7 +54,7 @@ class Public::SitesController < ApplicationController
   private
 
   def site_params
-    params.require(:site).permit(:name, :review, :local_specialty, :url, :image, :prefecture, :site_type, :field_type, :daycamp)
+    params.require(:site).permit(:name, :review, :local_specialty, :url, :image, :prefecture, :site_type, :field_type, :daycamp, :evaluation)
   end
 
 end

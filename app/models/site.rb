@@ -3,6 +3,7 @@ class Site < ApplicationRecord
   belongs_to :end_user
   has_many :favorites, dependent: :destroy
   has_many :site_comments, dependent: :destroy
+
   # has_many :favorited_end_users, throught: :favorites, source: :end_user
 
   enum prefecture:{ hokkaido:0,
@@ -17,6 +18,7 @@ class Site < ApplicationRecord
   }
 
   enum site_type:{ section:0,free:1,cottage:2,glamping:3 }
+  validates :site_type, inclusion: {in: Site.site_types.keys }
   enum field_type:{ forest:0,grass:1,riverside:2,seaside:3,lakeside:4 }
   enum daycamp:{ have:0,nothing:1,notclear:2 }
 
@@ -41,7 +43,9 @@ class Site < ApplicationRecord
   end
 
   def self.create_all_ranks
-    Site.find(Favorite.group(:site_id).where(created_at: Time.current.all_week).order('count(site_id) desc').limit(5).pluck(:site_id))
+    #Site.find(Favorite.group(:site_id).where(created_at: Time.current.all_week).order('count(site_id) desc').limit(5).pluck(:site_id))
+    ranking = Favorite.group(:site_id).order('count(site_id) desc').limit(5).count
+    self.where(id: ranking.keys).sort_by{|o| ranking[o.id] }.reverse
   end
 
   #検索方法分岐

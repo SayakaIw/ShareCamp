@@ -32,6 +32,10 @@
                     <td>キャンプ場URL</td>
                     <td><%= @site.url %></td>
                 </tr>
+                <tr>
+                    <td>おすすめ度</td>
+                    <td class="site-evaluation" data-score="<%= @site.evaluation %>"></td>
+                </tr>
             </table>
             <div class="w-100"></div>
             <p class="p-3">
@@ -44,6 +48,7 @@
             </p>
 
         </div>
+        <!--コメント投稿-->
         <div class="d-flex align-items-end">
             <div class="mb-3">
                 <%= form_with model: [@site,@site_comment], local: false do |f| %>
@@ -51,7 +56,7 @@
                     <%= f.submit "送信する" %>
                 <% end %>
             </div>
-
+        <!--コメント表示-->
         </div>
         <div class="col-md-3 p-1">
             <div class="favorite_btn_<%= @site.id %>"><%= render 'public/favorites/favorite_btn', site: @site %></div>
@@ -63,3 +68,13 @@
         </div>
     </div>
 </div>
+
+<script>
+  $('.site-evaluation').raty({
+    readOnly: true,
+    score: function() {
+      return $(this).attr('data-score');
+    },
+    path: '/assets/'
+  });
+</script>

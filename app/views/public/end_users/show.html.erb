@@ -1,16 +1,31 @@
 <div class="container" style= "height: 80vh">
-  <div class="row">
   <%= render 'public/homes/flash' %>
+  <div class="row">
+
     <div class="col-md-8">
       <%= link_to "新規投稿", new_site_path, class: "btn btn-success" %>
       <%= render 'public/sites/index', site: @site %>
     </div>
-    <div class="col-md-4">
-      <% @favorite_sites.each do |site|%>
-        <%= site.site.name %>
+    <div class="col-md-4" style="background-color: #f5f5f5;">
+      <h4 class="text-center mb-4">My favorites</h4>
+
+      <p style="padding: 10px; border: solid 1px #ccc;">
+        <% @favorite_sites.each do |site|%>
+          <%= link_to site_path(site) do %>
+            <u>サイト名：<%= site.name %></u>
+          <% end %>
+          <u>　by:<%= site.end_user.nick_name %><br></u>
+        <% end %>
+      </p>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="d-flex align-items-end">
+      <% if @end_user.name != "guestuser" %>
+        <%= link_to "編集", my_page_edit_path, class: "btn btn-outline-primary" %>
+        <%= link_to "退会する", confirm_unsubscribe_path, class: "btn btn-outline-danger" %>
       <% end %>
-      <%= link_to "編集", my_page_edit_path, class: "btn btn-outline-primary" %>
-      <%= link_to "退会する", confirm_unsubscribe_path, class: "btn btn-outline-danger" %>
     </div>
   </div>
 </div>
