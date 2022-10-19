@@ -1,6 +1,6 @@
 class Public::EndUsersController < ApplicationController
   before_action :authenticate_end_user!
-  before_action :ensure_guest_user, only: [:edit]
+  # before_action :ensure_guest, only: [:edit]
 
   def show
     @end_user = current_end_user

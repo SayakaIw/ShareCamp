@@ -1,2 +1,89 @@
 <h1>Admin::Sites#show</h1>
-<p>Find me in app/views/admin/sites/show.html.erb</p>
+
+<div class="container mt-3">
+    <h3 class="text-center mb-3 bg-light">〜<%= @site.name %>　<i class="fa-solid fa-tents"></i>　紹介〜</h3>
+    <div class="row">
+
+        <div class="col-md-6 p-1">
+            <table class='table table-hover table-inverse'>
+                <tr>
+                    <td>所在地（都道府県）</td>
+                    <td><%= @site.prefecture_i18n %></td>
+                </tr>
+                <tr>
+                    <!--<td>住所</td>-->
+                    <!--<td></td>-->
+                </tr>
+                <tr>
+                    <td>サイト種類</td>
+                    <td><%= @site.site_type_i18n %></td>
+                </tr>
+                <tr>
+                    <td>フィールド種類</td>
+                    <td><%= @site.field_type_i18n %></td>
+                </tr>
+                <tr>
+                    <td>デイキャンプ実施</td>
+                    <td><%= @site.daycamp_i18n %></td>
+                </tr>
+                <tr>
+                    <td>地域オススメ名産品</td>
+                    <td><%= @site.local_specialty %></td>
+                </tr>
+                <tr>
+                    <td>キャンプ場URL</td>
+                    <td><%= @site.url %></td>
+                </tr>
+                <tr>
+                    <td>おすすめ度</td>
+                    <td class="site-evaluation" data-score="<%= @site.evaluation %>"></td>
+                </tr>
+            </table>
+            <div class="w-100"></div>
+            <p class="p-3">
+                <%= image_tag @site.get_image(300,300) %>
+                <%= @site.review %><br>
+                <% if admin_signed_in? %>
+                    <!--<!%= link_to '編集', edit_site_path(@site), class: "btn btn-sm btn-success edit_site_#{@site.id}" %>-->
+                    <%= link_to '削除', admin_site_path(@site), data: { confirm: '本当に消しますか？' }, method: :delete, class: "btn btn-sm btn-danger destroy_site_#{@site.id}"%>
+                <% end %>
+            </p>
+
+        </div>
+
+        <!--コメント表示-->
+
+        <div class="col-md-3 ml-3">
+            <!--<div class="favorite_btn_<!%= @site.id %>"><!%= render 'public/favorites/favorite_btn', site: @site %></div>-->
+            <p class="comments_count_<%= @site.id %>">コメント数：<%= @site.site_comments.count %></p>
+
+            <div class="site_comments">
+              <% @site.site_comments.each do |site_comment| %>
+              <div class="card" style="width: 100%;">
+                <div class="card-body">
+                  <p class="card-text">
+                      <%= site_comment.comment %><br>
+                      <small class="text-muted">投稿日：<%= site_comment.created_at.strftime('%Y/%m/%d') %><br>
+                      by：<%= site_comment.end_user.nick_name %>さん</small>
+                  </p>
+                    <% if admin_signed_in? %>
+                      <%= link_to "削除", admin_site_site_comment_path(site_comment.site,site_comment), method: :delete, class: "btn-sm btn-danger" %>
+                    <% end %>
+                </div>
+              </div>
+              <% end %>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+  $('.site-evaluation').raty({
+    readOnly: true,
+    score: function() {
+      return $(this).attr('data-score');
+    },
+    path: '/assets/'
+  });
+</script>

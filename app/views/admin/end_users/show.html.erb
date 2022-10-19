@@ -1,9 +1,28 @@
 <div class="container" style= "height: 80vh">
-  <%#= render 'public/homes/flash' %>
-  <h1>Admin::Users詳細ページ</h1>
+  <h1>Admin - EndUsers詳細ページ</h1>
   <div class="row">
     <div class="col-md-8">
-      <%= render 'public/sites/index', site: @site %>
+
+      <% @site.each do |site| %>
+      <div class="card mb-3" style="max-width: 90%;">
+        <div class="row no-gutters">
+          <div class="col-md-4 d-flex align-items-center justify-content-center">
+            <%= image_tag site.get_image(200,200) %>
+          </div>
+          <div class="col-md-7">
+            <div class="card-body ml-3">
+              <h5 class="card-title">
+                <%= link_to admin_site_path(site) do %>
+                  <%= site.name %>
+                <% end %>
+              </h5>
+              <p class="card-text"><%= site.review %></p>
+              <p class="card-text"><small class="text-muted">投稿日：<%= site.created_at.strftime('%Y/%m/%d') %><br>by：<%= site.end_user.nick_name %>さん</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
     </div>
     <div class="col-md-4">
       <%= link_to "編集", edit_admin_end_user_path %>

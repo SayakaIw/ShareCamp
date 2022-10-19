@@ -13,9 +13,10 @@ Rails.application.routes.draw do
 
     resources :end_users, only: [:index, :show, :edit, :update]
 
-    resources :site_comments, only: [:destroy]
+    resources :sites, only: [:index, :show, :edit, :update, :destroy] do
+      resources :site_comments, only: [:destroy]
+    end
 
-    resources :sites, only: [:index, :show, :edit, :update, :destroy]
   end
 
 
