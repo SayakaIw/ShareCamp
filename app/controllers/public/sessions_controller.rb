@@ -46,7 +46,8 @@ class Public::SessionsController < Devise::SessionsController
     if @end_user.valid_password?(params[:end_user][:password]) && (@end_user.is_deleted == "withdrawal")
       ##trueだった場合、退会しているのでサインアップ画面に遷移する
         # flash[:danger] = "このアカウントは退会済みです。再登録をしてご利用ください。"
-        redirect_to new_end_user_registration_path, notice: "このアカウントは退会済みです。再登録をしてご利用ください。"
+        flash[:success] ="このアカウントは退会済みです。再登録をしてご利用ください。"
+        redirect_to new_end_user_registration_path
     end
   end
 
