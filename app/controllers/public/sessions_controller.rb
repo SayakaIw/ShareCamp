@@ -39,10 +39,11 @@ class Public::SessionsController < Devise::SessionsController
   def end_user_state # 退会しているかを判断するメソッド
     ## 【処理内容1】 入力されたemailからアカウントを1件取得
     @end_user = EndUser.find_by(email: params[:end_user][:email])
+
     ## アカウントを取得できなかった場合、このメソッドを終了する
     return if !@end_user
     ## 【処理内容2】 取得したアカウントのパスワードと入力されたパスワードが一致かつ退会してる
-    if @end_user.valid_password?(params[:end_user][:password]) && (@end_user.is_deleted == true)
+    if @end_user.valid_password?(params[:end_user][:password]) && (@end_user.is_deleted == "withdrawal")
       ##trueだった場合、退会しているのでサインアップ画面に遷移する
         # flash[:danger] = "このアカウントは退会済みです。再登録をしてご利用ください。"
         redirect_to new_end_user_registration_path, notice: "このアカウントは退会済みです。再登録をしてご利用ください。"

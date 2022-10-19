@@ -4,7 +4,7 @@
       <div class="my-5 mx-auto" style="width: 300px;">
         <h2>Log in</h2>
 
-        <%= form_with model: @admin, url: admin_session_path(resource_name), local: true do |f| %>
+        <%= form_with model: @admin, url: admin_session_path, local: true do |f| %>
           <div class="field">
             <%= f.label :email %><br />
             <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
