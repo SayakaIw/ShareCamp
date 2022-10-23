@@ -16,6 +16,8 @@ class Public::SitesController < ApplicationController
     # byebug
     @site.end_user_id = current_end_user.id
     if @site.save
+      # タグの保存
+      @site.save_tags(params[:site][:tag])
       flash[:success] = "登録しました"
       redirect_to my_page_path
     else
@@ -37,6 +39,8 @@ class Public::SitesController < ApplicationController
   def update
     @site = Site.find(params[:id])
     if @site.update(site_params)
+      # タグの更新
+      @site.save_tags(params[:site][:tag])
       flash[:success] = "編集に成功しました"
       redirect_to my_page_path
     else

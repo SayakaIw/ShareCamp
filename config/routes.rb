@@ -42,6 +42,8 @@ Rails.application.routes.draw do
       resource :favorites, only: [:create, :destroy]
       resources :site_comments, only: [:create, :destroy]
     end
+    # %wとすると、文字列の配列作れる
+    resources :tags, only: %w[index show destroy]
 
     # resources :end_users do
 

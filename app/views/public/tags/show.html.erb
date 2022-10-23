@@ -1,0 +1,13 @@
+<h2>Tag --></h2>
+
+<%# タグ名 %>
+<h3><%= @tag.name %></h3>
+
+<%# タグに関連付く記事一覧 %>
+<ul>
+  <% @tag.sites.each do |site| %>
+    <li>
+      <%= link_to site.name, site_path(site) %>
+    </li>
+  <% end %>
+</ul>

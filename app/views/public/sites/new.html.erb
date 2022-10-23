@@ -73,6 +73,12 @@
                 <div id="evaluate_stars">
                     <label>【おすすめ度】</label>
                 </div>
+                <div>
+                    <%= f.label :tag, 'タグ' %><br>
+                    <%# Edit用に@post.tags.pluck(:name)でタグの配列を取得 %>
+                    <%= f.text_field :tag, value: @site.tags.pluck(:name) %><br>
+                    <small>スペースで区切ることで複数指定できます。</small><br>
+                </div>
 
                     <%= f.file_field :image, accept: "image/*" %>
                 <div class="text-right mt-2">

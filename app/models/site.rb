@@ -3,6 +3,9 @@ class Site < ApplicationRecord
   belongs_to :end_user
   has_many :favorites, dependent: :destroy
   has_many :site_comments, dependent: :destroy
+  has_many :tag_maps, dependent: :destroy
+  has_many :tags, through: :tag_maps
+  
 
   # has_many :favorited_end_users, throught: :favorites, source: :end_user
 
@@ -42,13 +45,14 @@ class Site < ApplicationRecord
     favorites.exists?(end_user_id: end_user.id)
   end
 
+  #週間いいねランキング
   def self.create_all_ranks
     #Site.find(Favorite.group(:site_id).where(created_at: Time.current.all_week).order('count(site_id) desc').limit(5).pluck(:site_id))
     ranking = Favorite.group(:site_id).order('count(site_id) desc').limit(5).count
     self.where(id: ranking.keys).sort_by{|o| ranking[o.id] }.reverse
   end
 
-  #検索方法分岐
+  #検索方法分岐(サイト名)
   def self.search_for(content, method)
     if method == 'perfect'
       Site.where(name: content)
@@ -60,7 +64,8 @@ class Site < ApplicationRecord
       Site.where('name LIKE?', '%' + content + '%')
     end
   end
-
+  
+  #検索方法分岐（フィールドタイプ）
   def self.search_for(content, method)
     if method == 'perfect'
       Site.where(field_type: content)
@@ -71,6 +76,40 @@ class Site < ApplicationRecord
     else
       Site.where('field_type LIKE?', '%' + content + '%')
     end
+  end
+  
+  def save_tags(tags)
+    # タグをスペース区切りで分割し配列にする.連続した空白も対応するので、最後の“+”がポイント
+    tag_list = tags.split(/[[:blank:]]+/)
+    # 自分自身に関連づいたタグを取得する
+    current_tags = self.tags.pluck(:name)
+    # (1) 元々自分に紐付いていたタグと投稿されたタグの差分を抽出
+    #   -- 記事更新時に削除されたタグ
+    old_tags = current_tags - tag_list
+    # (2) 投稿されたタグと元々自分に紐付いていたタグの差分を抽出
+    #   -- 新規に追加されたタグ
+    new_tags = tag_list - current_tags
+    p current_tags
+    
+    # tag_mapsテーブルから、(1)のタグを削除
+    #   tagsテーブルから該当のタグを探し出して削除する
+    old_tags.each do |old|
+      # tag_mapsテーブルにあるpost_idとtag_idを削除
+      #   後続のfind_byでtag_idを検索
+      self.tags.delete Tag.find_by(name: old)
+    end
+
+    # tagsテーブルから(2)のタグを探して、tag_mapsテーブルにtag_idを追加する
+    new_tags.each do |new|
+      # 条件のレコードを初めの1件を取得し1件もなければ作成する
+      # find_or_create_by : https://railsdoc.com/page/find_or_create_by
+      new_site_tag = Tag.find_or_create_by(name: new)
+
+      # tag_mapsテーブルにpost_idとtag_idを保存
+      #   配列追加のようにレコードを渡すことで新規レコード作成が可能
+      self.tags << new_site_tag
+    end
+
   end
 
 
