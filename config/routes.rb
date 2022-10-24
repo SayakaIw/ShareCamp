@@ -36,7 +36,7 @@ Rails.application.routes.draw do
 
     get 'searches/search'
     get 'searches/index'
-    # get 'searches/fieldsearch'
+    get 'searches/fieldsearch'
 
     resources :sites, only: [:show, :new, :create, :index, :edit, :update, :destroy] do
       resource :favorites, only: [:create, :destroy]

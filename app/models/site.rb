@@ -5,7 +5,7 @@ class Site < ApplicationRecord
   has_many :site_comments, dependent: :destroy
   has_many :tag_maps, dependent: :destroy
   has_many :tags, through: :tag_maps
-  
+
 
   # has_many :favorited_end_users, throught: :favorites, source: :end_user
 
@@ -33,6 +33,7 @@ class Site < ApplicationRecord
   #   end
   # end
 
+  #投稿時、画像が無かった場合はnoimgを表示する
   def get_image(width, height)
     unless image.attached?
       file_path = Rails.root.join('app/assets/images/camp-noimg.jpg')
@@ -64,20 +65,35 @@ class Site < ApplicationRecord
       Site.where('name LIKE?', '%' + content + '%')
     end
   end
-  
+
   #検索方法分岐（フィールドタイプ）
-  def self.search_for(content, method)
-    if method == 'perfect'
-      Site.where(field_type: content)
-    elsif method == 'forward'
-      Site.where('field_type LIKE ?', content + '%')
-    elsif method == 'backward'
-      Site.where('field_type LIKE?','%' + content)
-    else
-      Site.where('field_type LIKE?', '%' + content + '%')
-    end
+  # def self.search_for(content, method)
+  #   if method == 'perfect'
+  #     Site.where(field_type: content)
+  #   elsif method == 'forward'
+  #     Site.where('field_type LIKE ?', content + '%')
+  #   elsif method == 'backward'
+  #     Site.where('field_type LIKE?','%' + content)
+  #   else
+  #     Site.where('field_type LIKE?', '%' + content + '%')
+  #   end
+  # end
+  #カテゴリー検索
+  # def self.search(keyword)
+  #   # あいまい検索 “?”に対してkeywordが順番に入る
+  #   # LIKEは、あいまい検索の意味で、“%”は、前後のあいまいという意味
+  #   # “#{keyword}”は、Rubyの式展開
+  #   where('prefecture LIKE ? OR field_type LIKE ?', "%#{keyword}%", "%#{keyword}%")
+  # end
+  def self.search(prefecture_id,filed_type_id)
+    @results.where('prefecture'='prefecture_id' AND 'field_type'='filed_type_id')
   end
-  
+  # def self.or_search(prefecture_id,filed_type_id)
+  #   where('prefecture'='prefecture_id'  AND 'field_type'='filed_type_id')
+  # end
+
+
+  #タグ検索
   def save_tags(tags)
     # タグをスペース区切りで分割し配列にする.連続した空白も対応するので、最後の“+”がポイント
     tag_list = tags.split(/[[:blank:]]+/)
@@ -90,7 +106,7 @@ class Site < ApplicationRecord
     #   -- 新規に追加されたタグ
     new_tags = tag_list - current_tags
     p current_tags
-    
+
     # tag_mapsテーブルから、(1)のタグを削除
     #   tagsテーブルから該当のタグを探し出して削除する
     old_tags.each do |old|

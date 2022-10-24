@@ -1,0 +1,33 @@
+<!--<!% if end_user_signed_in? %>-->
+<!--    <!%= form_with url: searches_search_path, local: true, method: :get do |f| %>-->
+<!--      <!%= f.select :content, options_for_select({"林間"=>"forest", "芝"=>"grass", "河辺"=>"riverside", "海辺"=>"seaside", "湖畔"=>"lakeside"}) %>-->
+<!--      <!%= f.select :model, options_for_select({ "Site" => "site" }) %>-->
+<!--      <!%= f.select :method, options_for_select({"完全一致"=>"perfect"}) %>-->
+<!--      <!%= f.submit '検索' %>-->
+<!--    <!% end %>-->
+<!--<!% end %>-->
+
+<!--<!%= form_tag(searches_index_path, method: :get) do %>-->
+<!--  <!%= label_tag :keywords, '検索ワード' %>-->
+
+  <%# 検索ワードを引く次ぐためにparams[:keywords] %>
+<!--  <!%= text_field_tag :keywords, params[:keywords] %>-->
+
+  <%# セレクトボックスの状態を引き継ぐためにoptions_for_selectのselectedオプションを使用 %>
+<!--  <!%= select_tag('type', options_for_select([%w[AND AND], %w[OR OR]], { :selected => params[:type] })) %>-->
+
+<!--  <!%= submit_tag '検索' %>-->
+<!--<!% end %>-->
+
+<%# @resultsにデータが入っていれば検索結果を表示する %>
+<% if @results %>
+  <h2>Search Result</h2>
+  <% @results.each do |result| %>
+    <p>
+      <%= result.prefecture %><br>
+      <small>
+        <%= result.field_type %>
+      </small>
+    </p>
+  <% end %>
+<% end %>
