@@ -19,9 +19,6 @@ class Public::SearchesController < ApplicationController
 
   def fieldsearch
     @tags = Tag.all
-
-
-
     # splitで正規表現を使ってキーワードを空白(全角・半角・連続)分割する
     #   連続した空白も除去するので、最後の“+”がポイント
     # @keywords = params[:keywords].split(/[[:blank:]]+/)
@@ -48,7 +45,7 @@ class Public::SearchesController < ApplicationController
     @field_type = params[:field_type_id]
 
   #       →ここで＆検索を実施
-    @results = Site.search(prefecture_id,field_type_id)
+    @results = Site.search(@prefecture,@field_type)
   #       # 2回目以降のループでは、1回目の結果を更にモデル定義の検索メソッドで絞り込みしていく
   #       #   結果を@resultsに詰め込む
   #       @results = @results.merge(@results.search(keyword))
@@ -67,6 +64,6 @@ class Public::SearchesController < ApplicationController
   #   end
 
   #   render :index
-  # end
+  end
 
 end

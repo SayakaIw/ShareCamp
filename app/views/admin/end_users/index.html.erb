@@ -1,29 +1,5 @@
 <div class="container mt-3">
   <h4 class="mb-3 bg-light">会員一覧</h4>
-
-  <table class="table table-hover table-inverse">
-    <thead>
-      <tr>
-        <th>会員ID</th>
-        <th>会員氏名</th>
-        <th>メールアドレス</th>
-        <th>ステータス</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @end_users.each do |end_user| %>
-      <tr>
-        <td><%= end_user.id %></td>
-        <td>
-          <%= link_to admin_end_user_path(end_user) do %>
-          <%= end_user.name %>
-          <% end %>
-        </td>
-        <td><%= end_user.email %></td>
-        <td><%= end_user.is_deleted_i18n %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <%= render 'admin/end_users/index', end_users: @end_users %>
   <%= paginate @end_users %>
 </div>

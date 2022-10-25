@@ -27,7 +27,7 @@
         </div>
 
         <div id="tab3" class="tab">
-          <p>フィールドタイプから検索。</p>
+          <p>都道府県　& フィールドタイプから検索。</p>
           <!--<!%= render 'public/searches/fieldsearch' %>-->
           <!--<!%= form_tag(searches_fieldsearch_path(keyword: @site.field_type), method: "get") do %>-->
           <!--  <!%= select_tag(:field_type, options_for_select([["forest","forest"],["grass","grass"],["riverside","riverside"],["seaside","seaside"],["lakeside","lakeside"]])) %>-->
@@ -43,7 +43,7 @@
             <!--<!%= f.select :prefecture_id,　enumの内部を書いて画面には１：青森　など表示する。実際に送るデータは1 %>-->
             <%= f.select :prefecture_id, Site.prefectures_i18n.invert, {prompt: "選択して下さい"}, class: "prefecture-select" %>
             <!--field_typeの検索-->
-            <%= f.select :field_type_id, Site.field_types_i18n, {prompt: "選択して下さい"}, class: "field_type-select" %>
+            <%= f.select :field_type_id, Site.field_types_i18n.invert, {prompt: "選択して下さい"}, class: "field_type-select" %>
 
             <%# セレクトボックスの状態を引き継ぐためにoptions_for_selectのselectedオプションを使用 %>
             <!--<!%= f.select :type, options_for_select({"AND" => " AND", "OR" => "OR" }, { :selected => params[:type] }) %>-->
@@ -85,16 +85,4 @@
       $($(this).attr("href")).show();
       event.preventDefault();
     });
-</script>
-
-<script>
-  var d = new jpmap.japanMap(document.getElementById("my-map"), {
-    showsPrefectureName: true, //都道府県名を表示させる
-    width: 1000,　//横幅のサイズ
-    movesIslands: true, //沖縄地方が地図の左上の分離されたスペースに移動する
-    lang: 'ja', //表示させている都道府県名を日本語にする
-    onSelect: function(data){
-      alert(data.name);
-    }
-  });
 </script>

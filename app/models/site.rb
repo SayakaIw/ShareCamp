@@ -7,8 +7,6 @@ class Site < ApplicationRecord
   has_many :tags, through: :tag_maps
 
 
-  # has_many :favorited_end_users, throught: :favorites, source: :end_user
-
   enum prefecture:{ hokkaido:0,
     aomori:1,iwate:2,miyagi:3,akita:4,yamagata:5,fukushima:6,ibaraki:7,
     tochigi:8,gunma:9,saitama:10,chiba:11,tokyo:12,kanagawa:13,niigata:14,
@@ -66,18 +64,6 @@ class Site < ApplicationRecord
     end
   end
 
-  #検索方法分岐（フィールドタイプ）
-  # def self.search_for(content, method)
-  #   if method == 'perfect'
-  #     Site.where(field_type: content)
-  #   elsif method == 'forward'
-  #     Site.where('field_type LIKE ?', content + '%')
-  #   elsif method == 'backward'
-  #     Site.where('field_type LIKE?','%' + content)
-  #   else
-  #     Site.where('field_type LIKE?', '%' + content + '%')
-  #   end
-  # end
   #カテゴリー検索
   # def self.search(keyword)
   #   # あいまい検索 “?”に対してkeywordが順番に入る
@@ -86,12 +72,11 @@ class Site < ApplicationRecord
   #   where('prefecture LIKE ? OR field_type LIKE ?', "%#{keyword}%", "%#{keyword}%")
   # end
   def self.search(prefecture_id,filed_type_id)
-    @results.where('prefecture'='prefecture_id' AND 'field_type'='filed_type_id')
+    Site.where(prefecture: prefecture_id).where(field_type: filed_type_id)
   end
-  # def self.or_search(prefecture_id,filed_type_id)
-  #   where('prefecture'='prefecture_id'  AND 'field_type'='filed_type_id')
+  # def self.search(prefecture_id,filed_type_id)
+  #   @results.where('prefecture': 'prefecture_id').where('field_type': 'filed_type_id')
   # end
-
 
   #タグ検索
   def save_tags(tags)
