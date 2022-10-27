@@ -15,5 +15,8 @@ class Admin::SitesController < ApplicationController
   end
 
   def destroy
+    @site = Site.find(params[:id])
+    @site.destroy
+    redirect_to admin_end_user_path
   end
 end

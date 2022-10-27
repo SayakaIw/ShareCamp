@@ -45,7 +45,7 @@
                 <%= @site.review %><br>
                 <% if admin_signed_in? %>
                     <!--<!%= link_to '編集', edit_site_path(@site), class: "btn btn-sm btn-success edit_site_#{@site.id}" %>-->
-                    <%= link_to '削除', admin_site_path(@site), data: { confirm: '本当に消しますか？' }, method: :delete, class: "btn btn-sm btn-danger destroy_site_#{@site.id}"%>
+                    <%= link_to '削除', admin_site_path(@site), data: { confirm: '本当に消しますか？' }, method: :delete, class: "btn btn-sm btn-danger"%>
                 <% end %>
             </p>
 
