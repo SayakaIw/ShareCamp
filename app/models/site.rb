@@ -6,6 +6,9 @@ class Site < ApplicationRecord
   has_many :tag_maps, dependent: :destroy
   has_many :tags, through: :tag_maps
 
+  validates :name,presence:true
+  validates :review,presence:true,length:{maximum:200}
+
 
   enum prefecture:{ hokkaido:0,
     aomori:1,iwate:2,miyagi:3,akita:4,yamagata:5,fukushima:6,ibaraki:7,

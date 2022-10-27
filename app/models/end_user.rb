@@ -10,6 +10,10 @@ class EndUser < ApplicationRecord
   has_many :site_comments, dependent: :destroy
   # has_many :favorited_sites, throught: :favorites, source: :site
 
+  validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
+  validates :kana_name, length: { minimum: 2, maximum: 20 }, uniqueness: true
+  validates :nick_name, length: { minimum: 2, maximum: 20 }, uniqueness: true
+
   enum is_deleted: { "in_use": false, "withdrawal": true }
 
 
