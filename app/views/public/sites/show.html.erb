@@ -66,15 +66,15 @@
             </div>
         </div>
         <h4 class="mx-3">Tags --></h4>
-            <ul>
-              <%# 該当のPostからアソシエーションでタグを取得 %>
-              <% @site.tags.each do |tag| %>
-                <%# タグを展開 %>
-                <li>
-                  <%= link_to tag.name, tag_path(tag) %>
-                </li>
-              <% end %>
-            </ul>
+        <ul>
+          <%# 該当のPostからアソシエーションでタグを取得 %>
+          <% @site.tags.each do |tag| %>
+            <%# タグを展開 %>
+            <li>
+              <%= link_to tag.name, tag_path(tag) %>
+            </li>
+          <% end %>
+        </ul>
     </div>
 </div>
 
