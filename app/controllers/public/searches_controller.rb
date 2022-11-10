@@ -6,11 +6,12 @@ class Public::SearchesController < ApplicationController
     @model = params[:model]
     @content = params[:content]
     @method = params[:method]
-    if @model == 'site'
-      @records = Site.search_for(@content, @method)
-    else
-      render 'index'
-    end
+    # if @model == 'site'
+    @records = Site.search_for(@content, @method)
+    # else
+    #   # @tags = Tag.all
+    #   render 'index'
+    # end
   end
 
   def index
