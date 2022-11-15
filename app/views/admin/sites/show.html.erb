@@ -10,10 +10,6 @@
                     <td>所在地（都道府県）</td>
                     <td><%= @site.prefecture_i18n %></td>
                 </tr>
-                <!--<tr>-->
-                    <!--<td>住所</td>-->
-                    <!--<td></td>-->
-                <!--</tr>-->
                 <tr>
                     <td>サイト種類</td>
                     <td><%= @site.site_type_i18n %></td>
@@ -44,7 +40,6 @@
                 <%= image_tag @site.get_image(300,300) %>
                 <%= @site.review %><br>
                 <% if admin_signed_in? %>
-                    <!--<!%= link_to '編集', edit_site_path(@site), class: "btn btn-sm btn-success edit_site_#{@site.id}" %>-->
                     <%= link_to '削除', admin_site_path(@site), data: { confirm: '本当に消しますか？' }, method: :delete, class: "btn btn-sm btn-danger"%>
                 <% end %>
             </p>
@@ -52,9 +47,7 @@
         </div>
 
         <!--コメント表示-->
-
         <div class="col-md-3 ml-3">
-            <!--<div class="favorite_btn_<!%= @site.id %>"><!%= render 'public/favorites/favorite_btn', site: @site %></div>-->
             <p class="comments_count_<%= @site.id %>">コメント数：<%= @site.site_comments.count %></p>
 
             <div class="site_comments">

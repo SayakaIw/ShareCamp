@@ -1,6 +1,6 @@
-<%# @resultsにデータが入っていれば検索結果を表示する %>
 <% if @results %>
   <h3>検索結果一覧</h3>
+
   <% @results.each do |result| %>
     <%= render 'public/sites/index', site: @results %>
   <% end %>

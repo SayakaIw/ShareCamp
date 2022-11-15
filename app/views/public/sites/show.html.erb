@@ -8,10 +8,6 @@
                     <td>所在地（都道府県）</td>
                     <td><%= @site.prefecture_i18n %></td>
                 </tr>
-                <!--<tr>-->
-                    <!--<td>住所</td>-->
-                    <!--<td></td>-->
-                <!--</tr>-->
                 <tr>
                     <td>サイト種類</td>
                     <td><%= @site.site_type_i18n %></td>
@@ -46,8 +42,8 @@
                     <%= link_to '削除', site_path(@site), data: { confirm: '本当に消しますか？' }, method: :delete, class: "btn btn-sm btn-danger destroy_site_#{@site.id}"%>
                 <% end %>
             </p>
-
         </div>
+
         <!--コメント投稿-->
         <div class="d-flex align-items-end">
             <div class="mb-3">
@@ -69,7 +65,6 @@
         <ul>
           <%# 該当のPostからアソシエーションでタグを取得 %>
           <% @site.tags.each do |tag| %>
-            <%# タグを展開 %>
             <li>
               <%= link_to tag.name, tag_path(tag) %>
             </li>

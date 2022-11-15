@@ -28,42 +28,11 @@
 
         <div id="tab3" class="tab">
           <p>都道府県　& フィールドタイプから検索。</p>
-          <!--<!%= render 'public/searches/fieldsearch' %>-->
-          <!--<!%= form_tag(searches_fieldsearch_path(keyword: @site.field_type), method: "get") do %>-->
-          <!--  <!%= select_tag(:field_type, options_for_select([["forest","forest"],["grass","grass"],["riverside","riverside"],["seaside","seaside"],["lakeside","lakeside"]])) %>-->
-          <!--  <!%= submit_tag "絞り込み" %>-->
-          <!--<!% end %>-->
           <%= form_with url: searches_fieldsearch_path, local: true, method: :get do |f| %>
-            <!--<!%= f.label :keywords, '検索ワード' %>-->
-
-            <%# 検索ワードを引く次ぐためにparams[:keywords] %>
-            <!--<!%= f.text_field :keywords, params[:keywords] %>-->
-
-            <!--prefectureの検索-->
-            <!--<!%= f.select :prefecture_id,　enumの内部を書いて画面には１：青森　など表示する。実際に送るデータは1 %>-->
             <%= f.select :prefecture_id, Site.prefectures_i18n.invert, {prompt: "選択して下さい"}, class: "prefecture-select" %>
-            <!--field_typeの検索-->
             <%= f.select :field_type_id, Site.field_types_i18n.invert, {prompt: "選択して下さい"}, class: "field_type-select" %>
-
-            <%# セレクトボックスの状態を引き継ぐためにoptions_for_selectのselectedオプションを使用 %>
-            <!--<!%= f.select :type, options_for_select({"AND" => " AND", "OR" => "OR" }, { :selected => params[:type] }) %>-->
-
             <%= f.submit '検索' %>
           <% end %>
-
-          <%# @resultsにデータが入っていれば検索結果を表示する %>
-          <!--<!% if @results %>-->
-            <!--<h2><!%= @keywords %> Search Result ( <!%= @type %> )--
-          <!--  <!% @results.each do |result| %>-->
-          <!--    <p>-->
-          <!--      <!%= result.prefecture %><br>-->
-          <!--      <small>-->
-          <!--        <!%= result.field_type %>-->
-          <!--      </small>-->
-          <!--    </p>-->
-          <!--  <!% end %>-->
-          <!--<!% end %>-->
-
         </div>
 
         <div id="tab4" class="tab">

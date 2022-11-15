@@ -21,15 +21,10 @@
                 </div>
                 <div class="form_group mb-1">
                     <%= f.label :prefecture, "【県名を選択】" %>
-                    <!--invertメソッドでkeyとvalueを入れ替えられる-->
+                    <!--invertメソッドでkeyとvalueを入れ替える-->
                     <%= f.select :prefecture, Site.prefectures_i18n.invert, {prompt: "選択して下さい"}, class: "prefecture-select" %>
                 </div>
                 <div class="form_group mb-1">
-                   <!--<!%= f.label :site_type, "【サイトの種類を選択】" %><br>-->
-                   <!-- 区画サイト <!%= f.check_box :site_type,{},checked_value = 1, unchecked_value =0 %>-->
-                   <!-- フリーサイト <!%= f.check_box :site_type,{},checked_value = 2, unchecked_value =0 %>-->
-                   <!-- コテージ等 <!%= f.check_box :site_type,{},checked_value = 3, unchecked_value =0 %>-->
-                   <!-- グランピング <!%= f.check_box :site_type,{},checked_value = 4, unchecked_value =0 %>-->
                     <%= f.radio_button :site_type, Site.site_types.key(0) %>
                     <%= f.label :site_type, Site.site_types_i18n[:section] %>
 

@@ -7,6 +7,7 @@
       <%= render 'admin/sites/index', sites: @sites %>
       <%= paginate @sites %>
     </div>
+
     <div class="col-md-4 p-2" style="background-color: #f5f5f5;">
       <h3 class="text-center mb-3">週刊いいね👍ランキング</h3>
       <% @all_ranks.each.with_index(1) do |site,i| %>

@@ -8,7 +8,6 @@ class EndUser < ApplicationRecord
   has_many :sites, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :site_comments, dependent: :destroy
-  # has_many :favorited_sites, throught: :favorites, source: :site
 
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
   validates :kana_name, length: { minimum: 2, maximum: 20 }, uniqueness: true

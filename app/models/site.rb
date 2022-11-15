@@ -26,14 +26,6 @@ class Site < ApplicationRecord
   enum field_type:{ forest:0,grass:1,riverside:2,seaside:3,lakeside:4 }
   enum daycamp:{ have:0,nothing:1,notclear:2 }
 
-  # def get_image
-  #   if image.attached?
-  #     image
-  #   else
-  #     'camp-noimg.jpg'
-  #   end
-  # end
-
   #投稿時、画像が無かった場合はnoimgを表示する
   def get_image(width, height)
     unless image.attached?
@@ -68,49 +60,25 @@ class Site < ApplicationRecord
   end
 
   #カテゴリー検索
-  # def self.search(keyword)
-  #   # あいまい検索 “?”に対してkeywordが順番に入る
-  #   # LIKEは、あいまい検索の意味で、“%”は、前後のあいまいという意味
-  #   # “#{keyword}”は、Rubyの式展開
-  #   where('prefecture LIKE ? OR field_type LIKE ?', "%#{keyword}%", "%#{keyword}%")
-  # end
   def self.search(prefecture_id,filed_type_id)
     Site.where(prefecture: prefecture_id).where(field_type: filed_type_id)
   end
-  # def self.search(prefecture_id,filed_type_id)
-  #   @results.where('prefecture': 'prefecture_id').where('field_type': 'filed_type_id')
-  # end
 
   #タグ検索
   def save_tags(tags)
-    # タグをスペース区切りで分割し配列にする.連続した空白も対応するので、最後の“+”がポイント
     tag_list = tags.split(/[[:blank:]]+/)
-    # 自分自身に関連づいたタグを取得する
     current_tags = self.tags.pluck(:name)
-    # (1) 元々自分に紐付いていたタグと投稿されたタグの差分を抽出
-    #   -- 記事更新時に削除されたタグ
     old_tags = current_tags - tag_list
-    # (2) 投稿されたタグと元々自分に紐付いていたタグの差分を抽出
-    #   -- 新規に追加されたタグ
     new_tags = tag_list - current_tags
     p current_tags
 
-    # tag_mapsテーブルから、(1)のタグを削除
-    #   tagsテーブルから該当のタグを探し出して削除する
     old_tags.each do |old|
-      # tag_mapsテーブルにあるpost_idとtag_idを削除
-      #   後続のfind_byでtag_idを検索
       self.tags.delete Tag.find_by(name: old)
     end
 
-    # tagsテーブルから(2)のタグを探して、tag_mapsテーブルにtag_idを追加する
     new_tags.each do |new|
       # 条件のレコードを初めの1件を取得し1件もなければ作成する
-      # find_or_create_by : https://railsdoc.com/page/find_or_create_by
       new_site_tag = Tag.find_or_create_by(name: new)
-
-      # tag_mapsテーブルにpost_idとtag_idを保存
-      #   配列追加のようにレコードを渡すことで新規レコード作成が可能
       self.tags << new_site_tag
     end
 
