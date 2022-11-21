@@ -45,16 +45,6 @@ Rails.application.routes.draw do
     # %wとすると、文字列の配列作れる
     resources :tags, only: %w[index show destroy]
 
-    # resources :end_users do
-
-    #   collection do
-    #     get 'unsubscribe' => 'end_users#unsubscribe', as: 'confirm_unsubscribe'
-    #     patch 'withdraw' => 'end_users#withdraw', as: 'withdraw_end_user'
-    #   end
-    #   member do
-    #     get :my_page
-    #   end
-    # end
     resources :end_users, only: [:index] do
       member do
         get :favorites

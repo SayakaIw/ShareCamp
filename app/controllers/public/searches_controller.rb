@@ -3,9 +3,9 @@ class Public::SearchesController < ApplicationController
   before_action :authenticate_end_user!
 
   def search
-    @model = params[:model]
+    model = params[:model]
     @content = params[:content]
-    @method = params[:method]
+    method = params[:method]
     @records = Site.search_for(@content, @method)
   end
 

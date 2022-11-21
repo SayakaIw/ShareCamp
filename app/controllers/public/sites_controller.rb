@@ -1,10 +1,10 @@
 class Public::SitesController < ApplicationController
   before_action :authenticate_end_user!
+  before_action :correct_end_user, only: [:edit, :update]
 
   def show
     @site = Site.find(params[:id])
     @site_comment = SiteComment.new
-    # @site_comments = @site.site_comment
   end
 
   def new
@@ -13,7 +13,6 @@ class Public::SitesController < ApplicationController
 
   def create
     @site = Site.new(site_params)
-    # byebug
     @site.end_user_id = current_end_user.id
     if @site.save
       # タグの保存
@@ -29,7 +28,6 @@ class Public::SitesController < ApplicationController
   def index
     @sites = Site.all.page(params[:page]).per(10)
     @all_ranks = Site.create_all_ranks
-    # @fieldsites = Site.search(params[:keyword])
   end
 
   def edit
@@ -59,6 +57,12 @@ class Public::SitesController < ApplicationController
 
   def site_params
     params.require(:site).permit(:name, :review, :local_specialty, :url, :image, :prefecture, :site_type, :field_type, :daycamp, :evaluation)
+  end
+
+  def correct_end_user
+    @site = Site.find(params[:id])
+    @end_user = @site.end_user
+    redirect_to(sites_path) unless @end_user == current_end_user
   end
 
 end

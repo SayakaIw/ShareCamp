@@ -5,9 +5,7 @@
 
 <%# タグに関連付く記事一覧 %>
 <ul>
-  <% @tag.sites.each do |site| %>
-    <li>
-      <%= link_to site.name, site_path(site) %>
-    </li>
-  <% end %>
+  <li>
+    <%= render 'public/sites/index', site: @tag.sites %>
+  </li>
 </ul>
