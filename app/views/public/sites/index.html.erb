@@ -1,24 +1,24 @@
 <div class="container mt-3">
- <h3 class="text-center"><i class="fa-solid fa-circle-info"></i>Sites-information</h3>
- <div class="row">
-  <div class="col-md-8 p-2">
-   <%= render 'public/sites/index', site: @sites %>
-   <%= paginate @sites %>
+  <h3 class="text-center"><i class="fa-solid fa-circle-info"></i>Sites-information</h3>
+  <div class="row">
+    <div class="col-md-8 p-2">
+      <%= render 'public/sites/index', site: @sites %>
+      <%= paginate @sites %>
+    </div>
+    <div class="col-md-4 p-2" style="background-color: #f5f5f5;">
+      <h3 class="text-center mb-3">週間いいね👍ランキング</h3>
+      <% @all_ranks.each.with_index(1) do |site,i| %>
+        第<%= i %>位<br>
+        <%= link_to site_path(site) do %>
+          <%= site.name %><br>
+        <% end %>
+        投稿者:
+        <%= site.end_user.nick_name %><br>
+        ❤いいね数️<%= site.favorites.count %><br>
+        <br>
+      <% end %>
+    </div>
+    <h2>Tag Actions --></h2>
+    <%= link_to 'Tags List', tags_path %>
   </div>
-  <div class="col-md-4 p-2" style="background-color: #f5f5f5;">
-   <h3 class="text-center mb-3">週間いいね👍ランキング</h3>
-    <% @all_ranks.each.with_index(1) do |site,i| %>
-     第<%= i %>位<br>
-     <%= link_to site_path(site) do %>
-      <%= site.name %><br>
-     <% end %>
-     投稿者:
-     <%= site.end_user.nick_name %><br>
-     ❤いいね数️<%= site.favorites.count %><br>
-     <br>
-    <% end %>
-  </div>
-  <h2>Tag Actions --></h2>
-   <%= link_to 'Tags List', tags_path %>
- </div>
 </div>
