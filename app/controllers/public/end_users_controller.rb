@@ -1,19 +1,17 @@
 class Public::EndUsersController < ApplicationController
+  before_action :set_user
   before_action :authenticate_end_user!
 
   def show
-    @end_user = current_end_user
     favorites= Favorite.where(end_user_id: @end_user.id).pluck(:site_id)
     @favorite_sites = Site.find(favorites)
     @site = @end_user.sites
   end
 
   def edit
-    @end_user = current_end_user
   end
 
   def update
-    @end_user = current_end_user
     if @end_user.update(end_user_params)
       flash[:success] = "変更内容を登録しました"
       redirect_to my_page_path
@@ -27,7 +25,6 @@ class Public::EndUsersController < ApplicationController
   end
 
   def withdraw #利用者、理論退会処理（ステータス更新）
-    @end_user = current_end_user
     @end_user.update(is_deleted: true)
 
     reset_session
@@ -39,6 +36,10 @@ class Public::EndUsersController < ApplicationController
 
   def end_user_params
     params.require(:end_user).permit(:name, :kana_name, :nick_name, :email)
+  end
+
+  def set_user
+    @end_user = current_end_user
   end
 
 end
